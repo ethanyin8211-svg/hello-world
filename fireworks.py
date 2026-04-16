@@ -469,18 +469,21 @@ def trigger_birthday():
     global text_fireworks
     text_fireworks = []
 
-    # 第一行 "尹朵小朋友" - 整行作为一个大烟花
+    # ========== 在这里修改祝福语 ==========
+    line1 = "刘玉涵大宝贝"
+    line2 = "生日快乐！"
+    # =====================================
+
     tf1 = TextBurstFirework(
-        "\u5C39\u6735\u5C0F\u670B\u53CB",
+        line1,
         WIDTH // 2, HEIGHT // 3 - 30,
         random.choice([golden_color, pink_color]),
         delay=0, font_size=160
     )
     text_fireworks.append(tf1)
 
-    # 第二行 "生日快乐！" - 稍后发射
     tf2 = TextBurstFirework(
-        "\u751F\u65E5\u5FEB\u4E50\uFF01",
+        line2,
         WIDTH // 2, HEIGHT // 3 + 180,
         random.choice([golden_color, pink_color]),
         delay=80, font_size=160
