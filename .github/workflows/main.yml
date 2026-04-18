@@ -1,12 +1,31 @@
 name: CI
 
-on: push
+on: 
+  push:
+    branches: [ main, develop ]
+    tags: [ 'v*' ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
-  hello:
+  # Job 1: 测试
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - run: pip install -r requirements.txt
+      - run: pytest
       - run: echo "CI 跑起来了！"
       - run: python hello.py
 
+  # Job 2: 部署（只在打 tag 时触发）
+  #deploy:
+  #  needs: test                   # 依赖 test 成功
+  #  if: startsWith(github.ref, 'refs/tags/v')   # 只在打 tag 时跑
+  #  runs-on: ubuntu-latest
+  #  steps:
+  #    - uses: actions/checkout@v3
+  #    - run: ./deploy.sh
